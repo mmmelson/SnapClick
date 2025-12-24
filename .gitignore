@@ -1,0 +1,22 @@
+# Build artifacts
+.build/
+*.app
+*.dmg
+*.zip
+
+# macOS system files
+.DS_Store
+
+# Distribution packages
+dist/
+
+# Claude development files
+.claude/
+
+# Icon resources (keep only final .icns)
+AppIcon.iconset/
+
+# Internal development documents
+产品功能文档.md
+RELEASE_CHECKLIST.md
+发布说明.md
