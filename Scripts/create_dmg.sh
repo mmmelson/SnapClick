@@ -1,7 +1,7 @@
 #!/bin/bash
 
 APP_NAME="SnapClick"
-VERSION="1.0"
+VERSION="2.0"
 DMG_NAME="${APP_NAME}_v${VERSION}.dmg"
 
 echo "📦 正在创建 DMG 安装包..."

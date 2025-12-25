@@ -15,7 +15,7 @@
 </div>
 
 ## Download
-Click [**Download**](https://github.com/mmmelson/SnapClick/releases/latest) to start!
+Click [**Download**](https://github.com/mmmelson/SnapClick/releases/download/v2.0/SnapClick_v2.0.dmg) to start!
 
 SnapClick is too intuitive; you won't need any introduction.
 
