@@ -38,7 +38,7 @@ SnapClick太直观了，你不会需要任何介绍。
 
 <div align="center">
 
-![SnapClick 截图](Assets/image.png)
+![SnapClick 截图](images/image-1.png)
 
 </div>
 
