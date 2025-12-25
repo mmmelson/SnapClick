@@ -38,7 +38,7 @@ That's why I built SnapClick — a simple, stable auto-clicker that just works.
 
 <div align="center">
 
-![SnapClick Screenshot](Assets/image.png)
+<img src="images/image.png" alt="SnapClick Screenshot" width="50%">
 
 </div>
 
