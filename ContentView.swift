@@ -136,7 +136,7 @@ struct ContentView: View {
                         .font(.system(size: 40))
                         .foregroundColor(.secondary)
 
-                    Text("选择一个方案或创建新方案")
+                    Text(L.selectOrCreateScheme)
                         .font(.system(size: 12))
                         .foregroundColor(.secondary)
                 }

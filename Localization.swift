@@ -101,6 +101,10 @@ struct L {
         LocalizationManager.shared.currentLanguage == .chinese ? "点击下方 + 按钮添加" : "Click + to add"
     }
 
+    static var selectOrCreateScheme: String {
+        LocalizationManager.shared.currentLanguage == .chinese ? "选择一个方案或创建新方案" : "Select a scheme or create a new one"
+    }
+
     // 提示信息
     static var hotkeyNotConfigured: String {
         LocalizationManager.shared.currentLanguage == .chinese ? "快捷键未配置" : "Hotkey Not Configured"
