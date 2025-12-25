@@ -18,12 +18,12 @@ mkdir -p SnapClick.app/Contents/Resources
 cp Info.plist SnapClick.app/Contents/
 
 # 复制应用图标
-if [ -f "AppIcon.icns" ]; then
+if [ -f "Assets/AppIcon.icns" ]; then
     echo "🎨 复制应用图标..."
-    cp AppIcon.icns SnapClick.app/Contents/Resources/
+    cp Assets/AppIcon.icns SnapClick.app/Contents/Resources/
     echo "   ✅ 图标已添加"
 else
-    echo "   ⚠️  未找到 AppIcon.icns，应用将使用默认图标"
+    echo "   ⚠️  未找到 Assets/AppIcon.icns，应用将使用默认图标"
 fi
 
 # 编译所有 Swift 源文件
