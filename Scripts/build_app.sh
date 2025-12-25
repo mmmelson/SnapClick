@@ -15,7 +15,7 @@ mkdir -p SnapClick.app/Contents/MacOS
 mkdir -p SnapClick.app/Contents/Resources
 
 # 复制 Info.plist
-cp Info.plist SnapClick.app/Contents/
+cp Sources/Info.plist SnapClick.app/Contents/
 
 # 复制应用图标
 if [ -f "Assets/AppIcon.icns" ]; then
@@ -29,14 +29,14 @@ fi
 # 编译所有 Swift 源文件
 echo "🔨 编译源代码..."
 swiftc \
-    SnapClickApp.swift \
-    ContentView.swift \
-    ClickScheme.swift \
-    HotkeyMonitor.swift \
-    MouseClicker.swift \
-    SchemeManager.swift \
-    Localization.swift \
-    ViewModels/ClickerViewModel.swift \
+    Sources/SnapClickApp.swift \
+    Sources/ContentView.swift \
+    Sources/ClickScheme.swift \
+    Sources/HotkeyMonitor.swift \
+    Sources/MouseClicker.swift \
+    Sources/SchemeManager.swift \
+    Sources/Localization.swift \
+    Sources/ViewModels/ClickerViewModel.swift \
     -o SnapClick.app/Contents/MacOS/SnapClick \
     -framework Foundation \
     -framework AppKit \
