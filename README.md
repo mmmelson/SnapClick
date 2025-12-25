@@ -16,22 +16,20 @@
 
 ---
 
+## Download
+Click [**Download**](https://github.com/mmmelson/SnapClick/releases/latest)to start!
+
+SnapClick is too intuitive; you won't need any introduction.
+
 ## Why SnapClick?
 
 I recently stumbled upon the browser version of [Command & Conquer: Red Alert 2](https://game.chronodivide.com) and discovered it runs on Mac! Triggered a wave of childhood nostalgia, I quickly found myself addicted to my first "gaming enlightenment" all over again.
 
 However, building a tank army demands rapid, repetitive clicking - especially challenging when using just a trackpad! 😅
-
 I tried several off-the-shelf auto-clickers, but they were either locked behind a paywall or just didn't feel right.
-That’s why I built SnapClick — a simple, stable auto-clicker that just works.
 
----
+That's why I built SnapClick — a simple, stable auto-clicker that just works.
 
-## Download
-Click [**Download**](https://github.com/mmmelson/SnapClick/releases/latest)to start!
-SnapClick is too intuitive; you won't need any introduction.
-
----
 ## Features
 
 - 🎯 **Multiple Schemes** - Different click configs with custom hotkeys
@@ -45,8 +43,6 @@ SnapClick is too intuitive; you won't need any introduction.
 ![SnapClick Screenshot](Assets/image.png)
 
 </div>
-
----
 
 ## Quick Start
 
@@ -65,8 +61,6 @@ SnapClick is too intuitive; you won't need any introduction.
 2. Set clicks, duration, and hotkey
 3. Enable the scheme (toggle turns green ✅)
 4. Press your hotkey anywhere to auto-click!
-
----
 
 ## Important Notes
 
@@ -87,8 +81,6 @@ Higher speeds can crash macOS. The app prevents unsafe configurations.
 SnapClick needs **Accessibility access** to monitor hotkeys and simulate clicks.
 
 **Grant permission**: System Settings → Privacy & Security → Accessibility → Enable SnapClick
-
----
 
 ## FAQ
 
@@ -122,8 +114,6 @@ Currently Apple Silicon only. Build from source to customize target architecture
 
 </details>
 
----
-
 ## Build from Source
 
 ```bash
@@ -131,8 +121,6 @@ git clone https://github.com/mmmelson/SnapClick.git
 cd SnapClick
 ./Scripts/build_app.sh
 ```
-
----
 
 ## License
 

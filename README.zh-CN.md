@@ -16,21 +16,20 @@
 
 ---
 
+## 下载
+点击[**下载**](https://github.com/mmmelson/SnapClick/releases/latest)，即可开始！
+
+SnapClick太直观了，你不会需要任何介绍。
+
 ## 为什么做 SnapClick？
 
-最近偶然间惊喜地发现了网页版的《红色警戒2》，在Mac端也能玩，于是和童年记忆狠狠地链接了一波，很快就重新沉迷上这款当年的启蒙游戏。 
+最近偶然间惊喜地发现了网页版的《红色警戒2》，在Mac端也能玩，于是和童年记忆狠狠地链接了一波，很快就重新沉迷上这款当年的启蒙游戏。
 然而，组建一个坦克大军、快速重复点击同一个单位无数次，对于我这个只用触控板的玩家来说简直酸爽！😅
 
 我开始尝试市面上现成的一些连点器工具，但他们要么需要付费，要么不够好用。
+
 这就是SnapClick的由来，一个简单、稳定、够用的mac端鼠标连点器。
 
----
-
-## 下载
-点击[**下载**](https://github.com/mmmelson/SnapClick/releases/latest)，即可开始！
-SnapClick太直观了，你不会需要我的任何介绍。
-
----
 ## ✨ 特性
 
 - 🎯 **多方案管理** - 不同点击配置，自定义快捷键
@@ -44,8 +43,6 @@ SnapClick太直观了，你不会需要我的任何介绍。
 ![SnapClick 截图](Assets/image.png)
 
 </div>
-
----
 
 ## 🚀 快速开始
 
@@ -64,8 +61,6 @@ SnapClick太直观了，你不会需要我的任何介绍。
 2. 设置点击次数、时长和快捷键
 3. 启用方案（开关变绿 ✅）
 4. 按快捷键自动连点！
-
----
 
 ## ⚠️ 重要说明
 
@@ -86,8 +81,6 @@ SnapClick太直观了，你不会需要我的任何介绍。
 SnapClick 需要「**辅助功能**」权限来监听快捷键和模拟点击。
 
 **授予权限**: 系统设置 → 隐私与安全性 → 辅助功能 → 启用 SnapClick
-
----
 
 ## ❓ 常见问题
 
@@ -121,8 +114,6 @@ open /Applications/SnapClick.app
 
 </details>
 
----
-
 ## 🛠️ 从源码构建
 
 ```bash
@@ -130,8 +121,6 @@ git clone https://github.com/mmmelson/SnapClick.git
 cd SnapClick
 ./Scripts/build_app.sh
 ```
-
----
 
 ## 📄 许可证
 
