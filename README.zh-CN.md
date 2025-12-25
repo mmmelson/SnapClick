@@ -2,6 +2,8 @@
 
 <div align="center">
 
+<img src="images/icon.png" alt="SnapClick Logo" width="128" height="128">
+
 🖱️ **Mac上最易用、最稳定的鼠标连点器**
 
 [![macOS](https://img.shields.io/badge/macOS-13.0+-blue.svg)](https://www.apple.com/macos/)
@@ -35,6 +37,21 @@
 - 🎨 **现代界面** - 使用 SwiftUI 构建的原生 macOS 界面
 - 📊 **后台运行** - 即使窗口关闭也能保持快捷键功能
 - 💾 **自动保存** - 所有更改自动保存并在重启后恢复
+
+## 📸 应用截图
+
+<div align="center">
+
+### 主窗口
+*轻松创建和管理多个连点方案*
+
+### 方案编辑器
+*为每个方案配置点击次数、时长、按键类型和快捷键*
+
+### 菜单栏集成
+*即使关闭主窗口，也能通过菜单栏快速访问*
+
+</div>
 
 ## 📋 系统要求
 

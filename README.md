@@ -2,6 +2,8 @@
 
 <div align="center">
 
+<img src="images/icon.png" alt="SnapClick Logo" width="128" height="128">
+
 **The easiest and most reliable auto-clicker for macOS**
 
 [![macOS](https://img.shields.io/badge/macOS-13.0+-blue.svg)](https://www.apple.com/macos/)
@@ -35,6 +37,21 @@ I tried some auto-clicker tools on GitHub, but they were either paid or not user
 - 🎨 **Modern UI** - Native SwiftUI interface that feels right at home on macOS
 - 📊 **Background Running** - Keeps working even when the app window is closed
 - 💾 **Auto-Save** - All changes are automatically saved and restored on restart
+
+## Screenshots
+
+<div align="center">
+
+### Main Window
+*Create and manage multiple click schemes with ease*
+
+### Scheme Editor
+*Configure click count, duration, button type, and hotkey for each scheme*
+
+### Menu Bar Integration
+*Quick access from the menu bar, even when the main window is closed*
+
+</div>
 
 ## Quick Start
 
