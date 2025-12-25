@@ -229,7 +229,10 @@ class ClickerViewModel: ObservableObject {
     private func registerHotkey(for scheme: ClickScheme) {
         let schemeId = scheme.id  // 捕获ID而不是整个scheme
         hotkeyMonitor.registerHotkey(scheme.hotkey) { [weak self] in
-            guard let self = self else { return }
+            guard let self = self else {
+                print("⚠️ ViewModel 已被释放")
+                return
+            }
             // 通过ID查找最新的scheme，确保使用最新的参数
             guard let currentScheme = self.schemes.first(where: { $0.id == schemeId }) else {
                 print("⚠️ 方案已被删除")
@@ -237,7 +240,11 @@ class ClickerViewModel: ObservableObject {
             }
 
             print("🎯 执行方案: \(currentScheme.name), 点击次数: \(currentScheme.clickCount), 时长: \(currentScheme.totalDuration)秒")
-            self.mouseClicker.executeScheme(currentScheme)
+
+            // 强引用 mouseClicker 以确保执行期间不被释放
+            let clicker = self.mouseClicker
+            clicker.executeScheme(currentScheme)
+
             self.showNotification(
                 title: L.executing,
                 message: "\(currentScheme.name) - \(currentScheme.clickCount)\(LocalizationManager.shared.currentLanguage == .chinese ? "次" : "x")/\(String(format: "%.1f", currentScheme.totalDuration))\(LocalizationManager.shared.currentLanguage == .chinese ? "秒" : "s")"
