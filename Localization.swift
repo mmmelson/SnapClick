@@ -105,6 +105,18 @@ struct L {
         LocalizationManager.shared.currentLanguage == .chinese ? "选择一个方案或创建新方案" : "Select a scheme or create a new one"
     }
 
+    static var cpsWarning: String {
+        LocalizationManager.shared.currentLanguage == .chinese ?
+            "CPS超过200可能导致崩溃！" :
+            "CPS over 200 may cause crashes!"
+    }
+
+    static var currentCPS: String {
+        LocalizationManager.shared.currentLanguage == .chinese ?
+            "当前 CPS: %.1f" :
+            "Current CPS: %.1f"
+    }
+
     // 提示信息
     static var hotkeyNotConfigured: String {
         LocalizationManager.shared.currentLanguage == .chinese ? "快捷键未配置" : "Hotkey Not Configured"

@@ -38,19 +38,8 @@ I tried some auto-clicker tools on GitHub, but they were either paid or not user
 - 📊 **Background Running** - Keeps working even when the app window is closed
 - 💾 **Auto-Save** - All changes are automatically saved and restored on restart
 
-## Screenshots
-
 <div align="center">
-
-### Main Window
-*Create and manage multiple click schemes with ease*
-
-### Scheme Editor
-*Configure click count, duration, button type, and hotkey for each scheme*
-
-### Menu Bar Integration
-*Quick access from the menu bar, even when the main window is closed*
-
+![alt text](image.png)
 </div>
 
 ## Quick Start
@@ -127,6 +116,22 @@ Click Interval = Total Duration ÷ Click Count
 - 10 clicks in 1.0 second = 0.1 second (100ms) interval
 - 50 clicks in 5.0 seconds = 0.1 second (100ms) interval
 - 5 clicks in 2.0 seconds = 0.4 second (400ms) interval
+
+### CPS Limitation (Important!)
+
+**Maximum CPS: 200** (Clicks Per Second)
+
+⚠️ **Safety Warning**: CPS rates above 200 can cause macOS to become unstable or crash. The app enforces a 200 CPS limit to protect your system. This limit is calculated as:
+
+```
+CPS = Click Count ÷ Duration
+```
+
+**Safe configurations**:
+- ✅ 100 clicks in 1 second = 100 CPS (Safe)
+- ✅ 200 clicks in 2 seconds = 100 CPS (Safe)
+- ❌ 100 clicks in 0.5 seconds = 200 CPS (Maximum, risky)
+- ❌ 100 clicks in 0.3 seconds = 333 CPS (Not allowed)
 
 ### Background Running
 

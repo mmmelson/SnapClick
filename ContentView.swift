@@ -323,9 +323,19 @@ struct SchemeEditor: View {
         guard let count = Int(clickCount), let duration = Double(totalDuration) else {
             return false
         }
+        let cps = Double(count) / duration
         return count > 0 && count <= 100 &&  // 最大100次点击
                duration > 0 && duration <= 60 &&  // 最大60秒
+               cps <= 200 &&  // 最大200 CPS (Clicks Per Second)
                recordedKeyCode != 0  // 必须设置快捷键
+    }
+
+    // 计算当前的CPS
+    private var currentCPS: Double {
+        guard let count = Int(clickCount), let duration = Double(totalDuration), duration > 0 else {
+            return 0
+        }
+        return Double(count) / duration
     }
 
     // 检查快捷键是否已配置
@@ -421,6 +431,24 @@ struct SchemeEditor: View {
                             }
                         }
                 }
+            }
+
+            // CPS 警告提示
+            if currentCPS > 200 {
+                HStack(spacing: 4) {
+                    Image(systemName: "exclamationmark.triangle.fill")
+                        .font(.system(size: 10))
+                        .foregroundColor(.red)
+                    Text(L.cpsWarning)
+                        .font(.system(size: 10))
+                        .foregroundColor(.red)
+                }
+                .padding(.top, 4)
+            } else if currentCPS > 0 {
+                Text(String(format: L.currentCPS, currentCPS))
+                    .font(.system(size: 10))
+                    .foregroundColor(.secondary)
+                    .padding(.top, 4)
             }
 
             // 快捷键
