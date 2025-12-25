@@ -4,7 +4,7 @@
 
 <img src="images/icon.png" alt="SnapClick Logo" width="128" height="128">
 
-**The easiest and most reliable auto-clicker for macOS**
+**The easiest and most handy auto-clicker for Mac**
 
 [![macOS](https://img.shields.io/badge/macOS-13.0+-blue.svg)](https://www.apple.com/macos/)
 [![Architecture](https://img.shields.io/badge/Apple_Silicon-arm64-green.svg)](https://support.apple.com/en-us/HT211814)
