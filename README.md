@@ -14,10 +14,8 @@
 
 </div>
 
----
-
 ## Download
-Click [**Download**](https://github.com/mmmelson/SnapClick/releases/latest)to start!
+Click [**Download**](https://github.com/mmmelson/SnapClick/releases/latest) to start!
 
 SnapClick is too intuitive; you won't need any introduction.
 
@@ -44,45 +42,16 @@ That's why I built SnapClick — a simple, stable auto-clicker that just works.
 
 </div>
 
-## Quick Start
-
-**Requirements**: macOS 13.0+, Apple Silicon (M1/M2/M3/M4)
-
-### Installation
-
-1. [**Download the latest release**](https://github.com/mmmelson/SnapClick/releases/latest)
-2. Unzip and move `SnapClick.app` to Applications
-3. **First time**: Right-click → "Open" → "Open" (required once for unsigned apps)
-4. Grant Accessibility permission when prompted
-
-### How to Use
-
-1. Click "+" to create a new scheme
-2. Set clicks, duration, and hotkey
-3. Enable the scheme (toggle turns green ✅)
-4. Press your hotkey anywhere to auto-click!
-
-## Important Notes
-
-### CPS Safety Limit
-
-⚠️ **Maximum: 200 CPS** (Clicks Per Second)
-
-Higher speeds can crash macOS. The app prevents unsafe configurations.
-
-**Formula**: `CPS = Clicks ÷ Duration`
-
-**Examples**:
-- ✅ 100 clicks in 1 sec = 100 CPS (Safe)
-- ❌ 100 clicks in 0.3 sec = 333 CPS (Blocked)
-
-### Permissions
-
-SnapClick needs **Accessibility access** to monitor hotkeys and simulate clicks.
-
-**Grant permission**: System Settings → Privacy & Security → Accessibility → Enable SnapClick
-
 ## FAQ
+
+<details>
+<summary><b>What are the system requirements?</b></summary>
+
+- **macOS**: 13.0 (Ventura) or later
+- **CPU**: Apple Silicon (M1/M2/M3/M4)
+- **Permissions**: Accessibility access (required for global hotkeys and mouse control)
+
+</details>
 
 <details>
 <summary><b>Can't open the app?</b></summary>
@@ -94,6 +63,30 @@ Right-click the app → "Open" → "Open" (required once for unsigned apps)
 xattr -cr /Applications/SnapClick.app
 open /Applications/SnapClick.app
 ```
+
+</details>
+
+<details>
+<summary><b>How do I grant Accessibility permission?</b></summary>
+
+Go to **System Settings** → **Privacy & Security** → **Accessibility** → Enable SnapClick
+
+If already enabled but not working, try toggling it OFF then ON again.
+
+</details>
+
+<details>
+<summary><b>What's the CPS limit?</b></summary>
+
+⚠️ **Maximum: 200 CPS** (Clicks Per Second)
+
+Higher speeds can crash macOS. The app prevents unsafe configurations.
+
+**Formula**: `CPS = Clicks ÷ Duration`
+
+**Examples**:
+- ✅ 100 clicks in 1 sec = 100 CPS (Safe)
+- ❌ 100 clicks in 0.3 sec = 333 CPS (Blocked)
 
 </details>
 
@@ -114,13 +107,16 @@ Currently Apple Silicon only. Build from source to customize target architecture
 
 </details>
 
-## Build from Source
+<details>
+<summary><b>How to build from source?</b></summary>
 
 ```bash
 git clone https://github.com/mmmelson/SnapClick.git
 cd SnapClick
 ./Scripts/build_app.sh
 ```
+
+</details>
 
 ## License
 

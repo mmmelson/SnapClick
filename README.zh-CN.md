@@ -14,8 +14,6 @@
 
 </div>
 
----
-
 ## 下载
 点击[**下载**](https://github.com/mmmelson/SnapClick/releases/latest)，即可开始！
 
@@ -44,45 +42,16 @@ SnapClick太直观了，你不会需要任何介绍。
 
 </div>
 
-## 🚀 快速开始
-
-**系统要求**: macOS 13.0+, Apple Silicon (M1/M2/M3/M4)
-
-### 安装
-
-1. [**下载最新版本**](https://github.com/mmmelson/SnapClick/releases/latest)
-2. 解压并将 `SnapClick.app` 移到「应用程序」
-3. **首次打开**: 右键 → 「打开」→ 「打开」（未签名应用需要一次）
-4. 授予「辅助功能」权限
-
-### 如何使用
-
-1. 点击「+」创建新方案
-2. 设置点击次数、时长和快捷键
-3. 启用方案（开关变绿 ✅）
-4. 按快捷键自动连点！
-
-## ⚠️ 重要说明
-
-### CPS 安全限制
-
-⚠️ **最大值：200 CPS**（每秒点击数）
-
-更高速率可能导致 macOS 崩溃，应用会阻止不安全的配置。
-
-**公式**: `CPS = 点击次数 ÷ 时长`
-
-**示例**:
-- ✅ 100 次点击 1 秒 = 100 CPS（安全）
-- ❌ 100 次点击 0.3 秒 = 333 CPS（已阻止）
-
-### 权限说明
-
-SnapClick 需要「**辅助功能**」权限来监听快捷键和模拟点击。
-
-**授予权限**: 系统设置 → 隐私与安全性 → 辅助功能 → 启用 SnapClick
-
 ## ❓ 常见问题
+
+<details>
+<summary><b>系统要求是什么？</b></summary>
+
+- **操作系统**: macOS 13.0 (Ventura) 或更高
+- **处理器**: Apple Silicon (M1/M2/M3/M4)
+- **权限**: 辅助功能权限（用于全局快捷键和鼠标控制）
+
+</details>
 
 <details>
 <summary><b>无法打开应用？</b></summary>
@@ -94,6 +63,30 @@ SnapClick 需要「**辅助功能**」权限来监听快捷键和模拟点击。
 xattr -cr /Applications/SnapClick.app
 open /Applications/SnapClick.app
 ```
+
+</details>
+
+<details>
+<summary><b>如何授予辅助功能权限？</b></summary>
+
+打开 **系统设置** → **隐私与安全性** → **辅助功能** → 启用 SnapClick
+
+如已启用但不工作，尝试先关闭再重新打开。
+
+</details>
+
+<details>
+<summary><b>CPS 限制是多少？</b></summary>
+
+⚠️ **最大值：200 CPS**（每秒点击数）
+
+更高速率可能导致 macOS 崩溃，应用会阻止不安全的配置。
+
+**公式**: `CPS = 点击次数 ÷ 时长`
+
+**示例**:
+- ✅ 100 次点击 1 秒 = 100 CPS（安全）
+- ❌ 100 次点击 0.3 秒 = 333 CPS（已阻止）
 
 </details>
 
@@ -114,13 +107,16 @@ open /Applications/SnapClick.app
 
 </details>
 
-## 🛠️ 从源码构建
+<details>
+<summary><b>如何从源码构建？</b></summary>
 
 ```bash
 git clone https://github.com/mmmelson/SnapClick.git
 cd SnapClick
 ./Scripts/build_app.sh
 ```
+
+</details>
 
 ## 📄 许可证
 
