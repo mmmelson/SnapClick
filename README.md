@@ -16,13 +16,13 @@
 
 ## Why SnapClick?
 
-I recently came across the browser version of [Command & Conquer: Red Alert](https://game.chronodivide.com) and got completely hooked. There's something oddly satisfying about building a Soviet war machine in your browser during coffee breaks ☕️
+I recently stumbled upon the browser version of [Command & Conquer: Red Alert 2](https://game.chronodivide.com) and was thrilled to discover it runs on Mac! It instantly reconnected me with my childhood memories, and I quickly found myself hooked on this game that once sparked my love for strategy games.
 
-The problem? When buying units and tanks, I found myself frantically clicking like a maniac to bulk purchase or cancel orders. My index finger was getting a serious workout! 😅
+During gameplay, building a tank army requires rapidly and repeatedly clicking the same unit. Sometimes when you misclick, you need to right-click dozens of times to cancel. Using only a trackpad made my fingers particularly... well-exercised. 😅
 
-After trying several auto-clickers on GitHub - some crashed, others only did left-click - I thought, "Fine, I'll do it myself." And here we are.
+I tried some auto-clicker tools on GitHub, but they were either paid or not user-friendly enough - most only supported a single fixed clicking configuration. So I decided to build my own.
 
-**SnapClick is born from the noble quest to save your clicking finger while conquering the world. A simple, stable, and powerful auto-clicker that just works.**
+**This is SnapClick: a simple, stable, and powerful auto-clicker that just works.**
 
 ---
 
