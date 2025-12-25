@@ -44,7 +44,7 @@ I recently got hooked on playing Command & Conquer: Red Alert in browser. When b
 
 #### Option 1: Download Pre-built App (Recommended)
 
-1. Download the latest release from [Releases](https://github.com/yourusername/SnapClick/releases)
+1. Download the latest release from [Releases](https://github.com/mmmelson/SnapClick/releases)
 2. Unzip and move `SnapClick.app` to your Applications folder
 3. **Important - First time open**: Right-click the app → Select "Open" → Click "Open" in the dialog
    - This is required because the app isn't notarized by Apple
@@ -53,7 +53,7 @@ I recently got hooked on playing Command & Conquer: Red Alert in browser. When b
 #### Option 2: Build from Source
 
 ```bash
-git clone https://github.com/yourusername/SnapClick.git
+git clone https://github.com/mmmelson/SnapClick.git
 cd SnapClick
 ./build_app.sh
 ```
@@ -239,6 +239,6 @@ Thanks to everyone who tested and provided feedback!
 
 If you find it useful, please give it a ⭐️ Star
 
-[Report Issue](https://github.com/yourusername/SnapClick/issues) · [Request Feature](https://github.com/yourusername/SnapClick/discussions)
+[Report Issue](https://github.com/mmmelson/SnapClick/issues) · [Request Feature](https://github.com/mmmelson/SnapClick/discussions)
 
 </div>

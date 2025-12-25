@@ -42,7 +42,7 @@
 
 ### 方法 1：下载预编译版本（推荐）
 
-1. 从 [Releases](https://github.com/yourusername/SnapClick/releases) 页面下载最新版本
+1. 从 [Releases](https://github.com/mmmelson/SnapClick/releases) 页面下载最新版本
 2. 解压 `SnapClick-v2.0-arm64.zip`
 3. 将 `SnapClick.app` 拖到「应用程序」文件夹
 4. **重要 - 首次打开**: 右键点击应用 → 选择「打开」→ 在对话框中点击「打开」
@@ -52,7 +52,7 @@
 ### 方法 2：从源码构建
 
 ```bash
-git clone https://github.com/yourusername/SnapClick.git
+git clone https://github.com/mmmelson/SnapClick.git
 cd SnapClick
 ./build_app.sh
 ```
@@ -250,6 +250,6 @@ SnapClick/
 
 如果觉得有用，请给个 ⭐️ Star
 
-[问题反馈](https://github.com/yourusername/SnapClick/issues) · [功能建议](https://github.com/yourusername/SnapClick/discussions)
+[问题反馈](https://github.com/mmmelson/SnapClick/issues) · [功能建议](https://github.com/mmmelson/SnapClick/discussions)
 
 </div>
