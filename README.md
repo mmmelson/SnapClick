@@ -16,9 +16,13 @@
 
 ## Why SnapClick?
 
-I recently got hooked on playing Command & Conquer: Red Alert in browser. When buying units and tanks, I constantly needed to rapidly click the mouse to bulk purchase or cancel purchases. After trying several auto-clickers on GitHub - some unstable, others only supporting one click type - I decided to build my own tool.
+I recently came across the browser version of [Command & Conquer: Red Alert](https://game.chronodivide.com) and got completely hooked. There's something oddly satisfying about building a Soviet war machine in your browser during coffee breaks ☕️
 
-**SnapClick is born from this need: a simple, stable, and powerful auto-clicker that just works.**
+The problem? When buying units and tanks, I found myself frantically clicking like a maniac to bulk purchase or cancel orders. My index finger was getting a serious workout! 😅
+
+After trying several auto-clickers on GitHub - some crashed, others only did left-click - I thought, "Fine, I'll do it myself." And here we are.
+
+**SnapClick is born from the noble quest to save your clicking finger while conquering the world. A simple, stable, and powerful auto-clicker that just works.**
 
 ---
 
