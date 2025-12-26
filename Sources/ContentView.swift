@@ -562,6 +562,9 @@ struct SchemeEditor: View {
         guard isFormValid else { return }
         guard let count = Int(clickCount), let duration = Double(totalDuration) else { return }
 
+        // 取消所有焦点，移出光标
+        NSApp.keyWindow?.makeFirstResponder(nil)
+
         let hotkey = Hotkey(
             keyCode: recordedKeyCode,
             commandKey: recordedCommand,
@@ -584,17 +587,19 @@ struct SchemeEditor: View {
             viewModel.addScheme(newScheme)
             // 保存后关闭新增界面
             isAddingNewBinding = false
-        } else if var oldScheme = scheme {
-            // 更新现有方案 - 保持原有 ID 和名称
-            oldScheme.button = button
-            oldScheme.clickCount = count
-            oldScheme.totalDuration = duration
-            oldScheme.hotkey = hotkey
-            // 保持 oldScheme.isEnabled 和 oldScheme.name 不变
+        } else if let oldScheme = scheme {
+            // 更新现有方案 - 创建新的方案对象，保持原有 ID、名称和启用状态
+            var updatedScheme = oldScheme
+            updatedScheme.button = button
+            updatedScheme.clickCount = count
+            updatedScheme.totalDuration = duration
+            updatedScheme.hotkey = hotkey
+            // ⚠️ 关键：保持 isEnabled 状态不变
+            // updatedScheme.isEnabled 和 updatedScheme.name 已经从 oldScheme 继承
 
-            viewModel.updateScheme(scheme!, with: oldScheme)
+            viewModel.updateScheme(oldScheme, with: updatedScheme)
             // 更新选中的方案以刷新显示
-            if let index = viewModel.schemes.firstIndex(where: { $0.id == oldScheme.id }) {
+            if let index = viewModel.schemes.firstIndex(where: { $0.id == updatedScheme.id }) {
                 selectedScheme = viewModel.schemes[index]
             }
         }
