@@ -18,6 +18,12 @@ class HotkeyMonitor {
 
     /// 开始监听全局按键事件
     func startMonitoring() {
+        // 如果已经在监听，先停止
+        if eventTap != nil {
+            print("⚠️  检测到已有监听器，先停止旧的")
+            stopMonitoring()
+        }
+
         // 检查辅助功能权限
         guard checkAccessibilityPermission() else {
             print("❌ 错误: 请在系统偏好设置 -> 安全性与隐私 -> 辅助功能 中授予本应用权限")
@@ -55,26 +61,31 @@ class HotkeyMonitor {
         CFRunLoopAddSource(CFRunLoopGetCurrent(), runLoopSource, .commonModes)
         CGEvent.tapEnable(tap: eventTap, enable: true)
 
-        print("🚀 全局快捷键监听已启动")
+        print("🚀 全局快捷键监听已启动，已注册 \(hotkeyHandlers.count) 个快捷键")
     }
 
     /// 停止监听
     func stopMonitoring() {
         if let eventTap = eventTap {
             CGEvent.tapEnable(tap: eventTap, enable: false)
+            CFMachPortInvalidate(eventTap)
+            self.eventTap = nil
         }
         if let runLoopSource = runLoopSource {
             CFRunLoopRemoveSource(CFRunLoopGetCurrent(), runLoopSource, .commonModes)
+            self.runLoopSource = nil
         }
 
-        // ⚠️ 关键：必须清理已注册的快捷键，否则会导致重复注册
+        // ⚠️ 关键：清理已注册的快捷键，防止重复注册
+        let count = hotkeyHandlers.count
         hotkeyHandlers.removeAll()
 
-        print("⏹️ 全局快捷键监听已停止")
+        print("⏹️ 全局快捷键监听已停止，已清理 \(count) 个快捷键")
     }
 
     /// 处理按键事件
     private func handleEvent(proxy: CGEventTapProxy, type: CGEventType, event: CGEvent) -> Unmanaged<CGEvent> {
+        // 如果不是按键按下事件，直接传递
         guard type == .keyDown else {
             return Unmanaged.passUnretained(event)
         }
@@ -95,7 +106,8 @@ class HotkeyMonitor {
         if let handler = hotkeyHandlers[currentHotkey] {
             print("⌨️  触发快捷键: keyCode=\(keyCode)")
             // 在主线程执行，确保对象生命周期安全
-            DispatchQueue.main.async {
+            DispatchQueue.main.async { [weak self] in
+                guard self != nil else { return }
                 handler()
             }
             // 拦截该事件，防止传递到其他应用

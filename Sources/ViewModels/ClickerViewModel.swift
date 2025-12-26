@@ -54,8 +54,9 @@ class ClickerViewModel: ObservableObject {
                 // ⚠️ 关键：立即更新内存中的方案数组，确保 UI 立即刷新
                 schemes[index] = newScheme
 
-                // 如果正在运行且该方案已启用，需要重新注册快捷键
-                if isRunning && newScheme.isEnabled {
+                // 如果正在运行，需要重新注册所有快捷键以确保使用最新配置
+                if isRunning {
+                    print("🔄 方案已更新，重新启动监听器以应用新配置")
                     stopClicker()
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                         self.startClicker()
@@ -99,30 +100,20 @@ class ClickerViewModel: ObservableObject {
             _ = self.schemeManager.updateScheme(at: index, with: self.schemes[index])
         }
 
-        // 更新监听器状态
-        if newState {
-            // 启用方案
-            if !isRunning {
-                print("▶️  方案已启用，启动监听器")
-                startClicker()
-            } else {
-                print("➕ 监听器已运行，注册新快捷键")
-                registerHotkey(for: schemes[index])
-            }
-        } else {
-            // 禁用方案
-            let enabledCount = schemes.filter { $0.isEnabled }.count
-            print("📊 当前已启用方案数: \(enabledCount)")
+        // 更新监听器状态 - 统一处理：重新启动以确保快捷键正确注册
+        let enabledCount = schemes.filter { $0.isEnabled }.count
+        print("📊 当前已启用方案数: \(enabledCount)")
 
-            if enabledCount == 0 {
-                print("⏹️ 所有方案已禁用，停止监听器")
+        if enabledCount == 0 {
+            print("⏹️ 所有方案已禁用，停止监听器")
+            stopClicker()
+        } else {
+            print("🔄 重新启动监听器以确保快捷键正确注册")
+            if isRunning {
                 stopClicker()
-            } else {
-                print("🔄 重新注册快捷键")
-                stopClicker()
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                    self.startClicker()
-                }
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                self.startClicker()
             }
         }
     }
