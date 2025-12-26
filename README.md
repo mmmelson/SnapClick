@@ -118,6 +118,17 @@ cd SnapClick
 
 </details>
 
+## Changelog
+
+### v2.0 (Latest)
+- 🐛 Fixed click count accumulation bug when updating schemes
+- 🐛 Fixed app crash on hotkey trigger
+- ✨ Enhanced global hotkey reliability across all apps
+- 📦 Added custom DMG installer with visual guide
+
+### v1.0
+- 🎉 Initial release
+
 ## License
 
 MIT License - see [LICENSE](LICENSE)
