@@ -28,6 +28,12 @@ I tried several off-the-shelf auto-clickers, but they were either locked behind 
 
 That's why I built SnapClick — a simple, stable auto-clicker that just works.
 
+<div align="center">
+
+<img src="images/image.png" alt="SnapClick Screenshot" width="60%">
+
+</div>
+
 ## Features
 
 - 🎯 **Multiple Schemes** - Different click configs with custom hotkeys
@@ -35,12 +41,6 @@ That's why I built SnapClick — a simple, stable auto-clicker that just works.
 - 🖱️ **Left & Right Click** - Both buttons supported
 - ⏱️ **Precise Control** - Set exact counts and duration
 - 📊 **Background Running** - Works even when window is closed
-
-<div align="center">
-
-<img src="images/image.png" alt="SnapClick Screenshot" width="50%">
-
-</div>
 
 ## FAQ
 

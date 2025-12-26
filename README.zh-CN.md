@@ -28,6 +28,12 @@ SnapClick太直观了，你不会需要任何介绍。
 
 这就是SnapClick的由来，一个简单、稳定、够用的mac端鼠标连点器。
 
+<div align="center">
+
+<img src="images/image-1.png" alt="SnapClick 截图" width="60%">
+
+</div>
+
 ## ✨ 特性
 
 - 🎯 **多方案管理** - 不同点击配置，自定义快捷键
@@ -35,12 +41,6 @@ SnapClick太直观了，你不会需要任何介绍。
 - 🖱️ **左右键支持** - 两个按键都支持
 - ⏱️ **精确控制** - 准确设置次数和时长
 - 📊 **后台运行** - 窗口关闭也能工作
-
-<div align="center">
-
-<img src="images/image-1.png" alt="SnapClick 截图" width="50%">
-
-</div>
 
 ## ❓ 常见问题
 
