@@ -56,9 +56,25 @@ SnapClick太直观了，你不会需要任何介绍。
 <details>
 <summary><b>无法打开应用？</b></summary>
 
-右键应用 → 「打开」→ 「打开」（未签名应用需要一次）
+**macOS 会显示安全警告，因为本应用未经过公证。** 这对于没有 Apple Developer 会员资格的开源应用来说是正常现象。
 
-**或使用终端**:
+**方式 1：右键打开（推荐）**
+
+<div align="center">
+<img src="images/security-warning.png" alt="安全警告" width="45%">
+</div>
+
+右键应用 → **打开** → **打开**（未签名应用需要一次）
+
+**方式 2：系统设置**
+
+<div align="center">
+<img src="images/security-settings.png" alt="隐私与安全性" width="60%">
+</div>
+
+打开 **系统设置** → **隐私与安全性** → 点击 **仍要打开**
+
+**方式 3：终端命令**
 ```bash
 xattr -cr /Applications/SnapClick.app
 open /Applications/SnapClick.app

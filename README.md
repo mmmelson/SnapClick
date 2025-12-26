@@ -56,9 +56,25 @@ That's why I built SnapClick — a simple, stable auto-clicker that just works.
 <details>
 <summary><b>Can't open the app?</b></summary>
 
-Right-click the app → "Open" → "Open" (required once for unsigned apps)
+**macOS will show a security warning because this app is not notarized.** This is normal for open-source apps without Apple Developer membership.
 
-**Or use Terminal**:
+**Option 1: Right-click to open (Recommended)**
+
+<div align="center">
+<img src="images/security-warning.png" alt="Security Warning" width="45%">
+</div>
+
+Right-click the app → **Open** → **Open** (required once for unsigned apps)
+
+**Option 2: System Settings**
+
+<div align="center">
+<img src="images/security-settings.png" alt="Privacy & Security" width="60%">
+</div>
+
+Go to **System Settings** → **Privacy & Security** → Click **Open Anyway**
+
+**Option 3: Terminal**
 ```bash
 xattr -cr /Applications/SnapClick.app
 open /Applications/SnapClick.app
