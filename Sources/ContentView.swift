@@ -5,9 +5,23 @@ struct ContentView: View {
     // ⚠️ 关键：使用 AppDelegate 中的共享 ViewModel，确保窗口关闭后仍然运行
     @ObservedObject private var viewModel: ClickerViewModel
     @ObservedObject private var localization = LocalizationManager.shared
-    @State private var schemeToEdit: ClickScheme?
-    @State private var showingEditor = false
-    @State private var isAddingNew = false
+
+    // 使用枚举来明确区分编辑和新建模式
+    enum EditorMode: Identifiable {
+        case edit(ClickScheme)
+        case new(UUID)  // 添加UUID确保每次新建都是唯一的
+
+        var id: String {
+            switch self {
+            case .edit(let scheme):
+                return "edit-\(scheme.id.uuidString)"
+            case .new(let uuid):
+                return "new-\(uuid.uuidString)"
+            }
+        }
+    }
+
+    @State private var editorMode: EditorMode?
 
     init() {
         // 从 AppDelegate 获取共享的 ViewModel
@@ -54,13 +68,29 @@ struct ContentView: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
         .navigationTitle("SnapClick")
-        .sheet(isPresented: $showingEditor) {
-            SchemeEditorSheet(
-                scheme: schemeToEdit,
-                viewModel: viewModel,
-                isAddingNew: isAddingNew,
-                isPresented: $showingEditor
-            )
+        .sheet(item: $editorMode) { mode in
+            switch mode {
+            case .edit(let scheme):
+                SchemeEditorSheet(
+                    scheme: scheme,
+                    viewModel: viewModel,
+                    isAddingNew: false,
+                    isPresented: Binding(
+                        get: { editorMode != nil },
+                        set: { if !$0 { editorMode = nil } }
+                    )
+                )
+            case .new:
+                SchemeEditorSheet(
+                    scheme: nil,
+                    viewModel: viewModel,
+                    isAddingNew: true,
+                    isPresented: Binding(
+                        get: { editorMode != nil },
+                        set: { if !$0 { editorMode = nil } }
+                    )
+                )
+            }
         }
     }
 
@@ -76,9 +106,7 @@ struct ContentView: View {
                             displayName: schemeDisplayName(for: scheme),
                             viewModel: viewModel,
                             onEdit: {
-                                schemeToEdit = scheme
-                                isAddingNew = false
-                                showingEditor = true
+                                editorMode = .edit(scheme)
                             }
                         )
                     }
@@ -90,9 +118,7 @@ struct ContentView: View {
 
             // 新增按钮 - 图标化（移到下面）
             Button(action: {
-                isAddingNew = true
-                schemeToEdit = nil
-                showingEditor = true
+                editorMode = .new(UUID())  // 每次生成新的UUID
             }) {
                 HStack(spacing: 4) {
                     Image(systemName: "plus.circle.fill")
