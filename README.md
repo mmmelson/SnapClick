@@ -21,16 +21,16 @@ SnapClick is too intuitive; you won't need any introduction.
 
 ### First Time Setup
 
-When you first open SnapClick, macOS may show a security warning since it's not from the App Store. Here's how to bypass it:
+When you first open SnapClick, macOS will show a security dialog since it's not from the App Store. Follow these steps:
 
 <div align="center">
 
-<img src="images/notice1-en.png" alt="Security Warning Step 1" width="45%">
-<img src="images/notice2-en.png" alt="Security Warning Step 2" width="45%">
+<img src="images/notice1-en.png" alt="Security Dialog Step 1" width="45%">
+<img src="images/notice2-en.png" alt="Security Dialog Step 2" width="45%">
 
 </div>
 
-1. **Click "Done"** when the first warning appears (don't move to trash!)
+1. **Click "Done"** when the first dialog appears (don't move to trash!)
 2. Go to **System Settings** → **Privacy & Security**
 3. Scroll down and click **"Open Anyway"**
 4. SnapClick will now launch successfully

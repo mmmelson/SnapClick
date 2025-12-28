@@ -21,16 +21,16 @@ SnapClick太直观了，你不会需要任何介绍。
 
 ### 首次使用说明
 
-当您首次打开 SnapClick 时，macOS 可能会显示安全警告（因为应用未上架 App Store）。以下是绕过方法：
+当您首次打开 SnapClick 时，macOS 会显示安全提示（因为应用未上架 App Store）。请按以下步骤操作：
 
 <div align="center">
 
-<img src="images/notice1.png" alt="安全警告步骤1" width="45%">
-<img src="images/notice2.png" alt="安全警告步骤2" width="45%">
+<img src="images/notice1.png" alt="安全提示步骤1" width="45%">
+<img src="images/notice2.png" alt="安全提示步骤2" width="45%">
 
 </div>
 
-1. 点击第一个警告弹窗的**"完成"**按钮（不要移到废纸篓！）
+1. 点击第一个提示弹窗的**"完成"**按钮（不要移到废纸篓！）
 2. 前往**系统设置** → **隐私与安全性**
 3. 向下滚动，找到并点击**"仍要打开"**按钮
 4. SnapClick 现在可以成功启动了

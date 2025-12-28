@@ -319,12 +319,17 @@ struct SchemeEditorSheet: View {
 
     // 计算当前方案的显示名称
     private var schemeDisplayName: String {
+        if isAddingNew {
+            return L.newPreset
+        }
+
         if let scheme = scheme {
             // 根据方案在列表中的索引生成名称，忽略数据库中保存的name
             if let index = viewModel.schemes.firstIndex(where: { $0.id == scheme.id }) {
                 return L.presetName(index + 1)
             }
-            return scheme.name  // 找不到索引时使用保存的name
+            // 如果找不到索引，使用默认的预设名称
+            return L.preset
         }
         return L.newPreset
     }
