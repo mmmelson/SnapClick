@@ -136,7 +136,16 @@ cd SnapClick
 
 ## Changelog
 
-### v2.0 (Latest)
+### v3.0 (Latest)
+- 🎨 Redesigned scheme card interaction: entire card clickable for editing
+- 🎯 Moved toggle to right side with proper vertical centering
+- 🏷️ Added "Hotkey" label in scheme preview cards
+- ➕ Added "Add" label to new scheme button with icon
+- 🔤 Improved font consistency across all UI elements
+- 🐛 Fixed text overflow issues in scheme preview cards
+- ✨ Enhanced layout spacing and padding throughout
+
+### v2.0
 - 🐛 Fixed click count accumulation bug when updating schemes
 - 🐛 Fixed app crash on hotkey trigger
 - ✨ Enhanced global hotkey reliability across all apps
