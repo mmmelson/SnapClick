@@ -152,22 +152,23 @@ cd SnapClick
 
 ## Changelog
 
-### v3.0 (Latest)
+### v3.0 - 2025-12-28 (Latest)
 - 🎨 Redesigned scheme card interaction: entire card clickable for editing
 - 🎯 Moved toggle to right side with proper vertical centering
 - 🏷️ Added "Hotkey" label in scheme preview cards
 - ➕ Added "Add" label to new scheme button with icon
 - 🔤 Improved font consistency across all UI elements
 - 🐛 Fixed text overflow issues in scheme preview cards
+- 🐛 Fixed scheme editor title display issue
 - ✨ Enhanced layout spacing and padding throughout
 
-### v2.0
+### v2.0 - 2024-12-26
 - 🐛 Fixed click count accumulation bug when updating schemes
 - 🐛 Fixed app crash on hotkey trigger
 - ✨ Enhanced global hotkey reliability across all apps
 - 📦 Added custom DMG installer with visual guide
 
-### v1.0
+### v1.0 - 2024-12-25
 - 🎉 Initial release
 
 ## License
