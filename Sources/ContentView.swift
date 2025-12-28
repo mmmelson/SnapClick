@@ -5,7 +5,8 @@ struct ContentView: View {
     // ⚠️ 关键：使用 AppDelegate 中的共享 ViewModel，确保窗口关闭后仍然运行
     @ObservedObject private var viewModel: ClickerViewModel
     @ObservedObject private var localization = LocalizationManager.shared
-    @State private var selectedScheme: ClickScheme?
+    @State private var schemeToEdit: ClickScheme?
+    @State private var showingEditor = false
     @State private var isAddingNew = false
 
     init() {
@@ -48,179 +49,156 @@ struct ContentView: View {
 
             Divider()
 
-            // 主内容区
-            HStack(spacing: 0) {
-                // 左侧：方案列表
-                leftPanel
-                    .frame(width: 168)
-
-                Divider()
-
-                // 右侧：编辑区域
-                rightPanel
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-            }
-            .frame(maxHeight: .infinity)
+            // 主内容区：只显示方案列表
+            mainPanel
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
         .navigationTitle("SnapClick")
+        .sheet(isPresented: $showingEditor) {
+            SchemeEditorSheet(
+                scheme: schemeToEdit,
+                viewModel: viewModel,
+                isAddingNew: isAddingNew,
+                isPresented: $showingEditor
+            )
+        }
     }
 
-    // MARK: - 左侧面板
-    private var leftPanel: some View {
+    // MARK: - 主面板（方案列表）
+    private var mainPanel: some View {
         VStack(spacing: 0) {
-            // 新增按钮
-            Button(action: {
-                isAddingNew = true
-                selectedScheme = nil
-            }) {
-                Image(systemName: "plus")
-                    .font(.body)
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 36)
-            }
-            .buttonStyle(.bordered)
-            .frame(maxWidth: .infinity)
-            .padding(.horizontal, 8)
-            .padding(.top, 8)
-
             // 方案列表
             ScrollView {
-                LazyVStack(spacing: 6) {
+                LazyVStack(spacing: 8) {
                     ForEach(viewModel.schemes, id: \.id) { scheme in
-                        SchemeListItem(
+                        SchemeCard(
                             scheme: scheme,
                             displayName: schemeDisplayName(for: scheme),
                             viewModel: viewModel,
-                            isSelected: selectedScheme?.id == scheme.id,
-                            onSelect: {
-                                selectedScheme = scheme
+                            onEdit: {
+                                schemeToEdit = scheme
                                 isAddingNew = false
+                                showingEditor = true
                             }
                         )
                     }
                 }
-                .padding(.horizontal, 8)
-                .padding(.vertical, 8)
+                .padding(.horizontal, 12)
+                .padding(.top, 6)
+                .padding(.bottom, 6)
             }
+
+            // 新增按钮 - 图标化（移到下面）
+            Button(action: {
+                isAddingNew = true
+                schemeToEdit = nil
+                showingEditor = true
+            }) {
+                HStack(spacing: 4) {
+                    Image(systemName: "plus.circle.fill")
+                        .font(.system(size: 11.8))
+                    Text(L.add)
+                        .font(.system(size: 11.8))
+                }
+                .frame(maxWidth: .infinity)
+                .frame(height: 30)
+            }
+            .buttonStyle(.borderedProminent)
+            .padding(.horizontal, 12)
+            .padding(.top, 8)
+            .padding(.bottom, 10)
         }
         .frame(maxHeight: .infinity)
         .background(Color(nsColor: .windowBackgroundColor))
     }
-
-    // MARK: - 右侧面板
-    private var rightPanel: some View {
-        Group {
-            // 编辑区域
-            if let scheme = selectedScheme {
-                SchemeEditor(
-                    scheme: scheme,
-                    viewModel: viewModel,
-                    isAddingNew: false,
-                    selectedScheme: $selectedScheme,
-                    isAddingNewBinding: $isAddingNew
-                )
-                .id(scheme.id)  // ⚠️ 关键：使用方案ID作为视图唯一标识，确保不同方案使用独立视图实例
-            } else if isAddingNew {
-                SchemeEditor(
-                    scheme: nil,
-                    viewModel: viewModel,
-                    isAddingNew: true,
-                    selectedScheme: $selectedScheme,
-                    isAddingNewBinding: $isAddingNew
-                )
-                .id("new-scheme")  // ⚠️ 新建方案使用固定ID
-            } else {
-                // 空状态
-                VStack(spacing: 12) {
-                    Image(systemName: "hand.point.up.left.fill")
-                        .font(.system(size: 40))
-                        .foregroundColor(.secondary)
-
-                    Text(L.selectOrCreateScheme)
-                        .font(.system(size: 12))
-                        .foregroundColor(.secondary)
-                }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-            }
-        }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color(nsColor: .windowBackgroundColor))
-    }
 }
 
-// MARK: - 方案列表项
-struct SchemeListItem: View {
+// MARK: - 方案卡片
+struct SchemeCard: View {
     let scheme: ClickScheme
     let displayName: String
     @ObservedObject var viewModel: ClickerViewModel
-    let isSelected: Bool
-    let onSelect: () -> Void
+    let onEdit: () -> Void
 
     var body: some View {
-        Button(action: onSelect) {
-            VStack(alignment: .leading, spacing: 4) {
-                // 标题和开关
-                HStack {
+        HStack(spacing: 0) {
+            // 左侧：可点击区域
+            Button(action: onEdit) {
+                VStack(alignment: .leading, spacing: 6) {
+                    // 顶部：标题
                     Text(displayName)
-                        .font(.system(size: 11))  // 从 12 改为 11
-                        .fontWeight(.medium)
-                        .foregroundColor(.secondary)  // 灰色
-                        .lineLimit(1)
+                        .font(.system(size: 12.6, weight: .semibold))
+                        .foregroundColor(.primary)
+                        .frame(maxWidth: .infinity, alignment: .leading)
 
-                    Spacer(minLength: 4)
+                    // 详细信息
+                    VStack(alignment: .leading, spacing: 5) {
+                        // 点击信息
+                        HStack(spacing: 3) {
+                            Image(systemName: scheme.button == .left ? "cursorarrow.click" : "cursorarrow.click.2")
+                                .font(.system(size: 11.8))
+                                .foregroundColor(.secondary)
+                            Text(L.clickDescription(
+                                button: scheme.button == .left ? L.leftButton : L.rightButton,
+                                count: scheme.clickCount,
+                                duration: String(format: "%.1f", scheme.totalDuration)
+                            ))
+                            .font(.system(size: 11.8))
+                            .foregroundColor(.primary)
+                            .lineLimit(1)
+                            .fixedSize(horizontal: true, vertical: false)
+                        }
 
-                    Toggle("", isOn: binding(for: scheme))
-                        .labelsHidden()
-                        .toggleStyle(AlwaysActiveToggleStyle())
-                        .scaleEffect(0.7)
+                        // 快捷键信息
+                        hotkeyDisplay
+                    }
                 }
-
-                // 详细信息
-                VStack(alignment: .leading, spacing: 4) {  // 增加行间距从 2 到 4
-                    Text(L.clickDescription(
-                        button: scheme.button == .left ? L.leftButton : L.rightButton,
-                        count: scheme.clickCount,
-                        duration: String(format: "%.1f", scheme.totalDuration)
-                    ))
-                        .font(.system(size: 11))  // 从 10 改为 11
-                        .foregroundColor(.primary)  // 黑色
-
-                    hotkeyDisplay
-                }
+                .padding(10)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .contentShape(Rectangle())
             }
-            .padding(8)
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .background(
-                RoundedRectangle(cornerRadius: 8)
-                    .fill(isSelected ? Color.accentColor.opacity(0.15) : Color(nsColor: .controlBackgroundColor))
-            )
+            .buttonStyle(.plain)
+
+            // 右侧：开关（垂直居中）
+            Toggle("", isOn: binding(for: scheme))
+                .labelsHidden()
+                .toggleStyle(AlwaysActiveToggleStyle())
+                .scaleEffect(0.65)
+                .padding(.trailing, 10)
+                .padding(.leading, 8)
         }
-        .buttonStyle(.plain)
+        .background(
+            RoundedRectangle(cornerRadius: 10)
+                .fill(Color(nsColor: .controlBackgroundColor))
+                .shadow(color: scheme.isEnabled ? Color.accentColor.opacity(0.4) : Color.black.opacity(0.08), radius: scheme.isEnabled ? 6 : 3, x: 0, y: 2)
+        )
     }
 
     private var hotkeyDisplay: some View {
-        HStack(spacing: 4) {
+        HStack(spacing: 3) {
+            // 快捷键标签
             Text(L.hotkey)
-                .font(.system(size: 10))
+                .font(.system(size: 11.8))
                 .foregroundColor(.secondary)
 
-            HStack(spacing: 2) {
+            // 快捷键组合
+            HStack(spacing: 1) {
                 if scheme.hotkey.modifierFlags.contains(.maskCommand) {
-                    Image(systemName: "command")
+                    Text("⌘")
                 }
                 if scheme.hotkey.modifierFlags.contains(.maskAlternate) {
-                    Image(systemName: "option")
+                    Text("⌥")
                 }
                 if scheme.hotkey.modifierFlags.contains(.maskControl) {
-                    Image(systemName: "control")
+                    Text("⌃")
                 }
                 if scheme.hotkey.modifierFlags.contains(.maskShift) {
-                    Image(systemName: "shift")
+                    Text("⇧")
                 }
                 Text(keyCodeToString(scheme.hotkey.keyCode))
             }
-            .font(.system(size: 10))
-            .foregroundColor(.secondary)
+            .font(.system(size: 11.8, weight: .medium))
+            .foregroundColor(.primary)
         }
     }
 
@@ -228,9 +206,7 @@ struct SchemeListItem: View {
         Binding(
             get: { scheme.isEnabled },
             set: { newValue in
-                // 检查是否配置了快捷键
                 if newValue && scheme.hotkey.keyCode == 0 {
-                    // 尝试启用但未配置快捷键，显示提示
                     showHotkeyRequiredAlert()
                 } else {
                     viewModel.toggleScheme(scheme)
@@ -241,7 +217,7 @@ struct SchemeListItem: View {
 
     private func showHotkeyRequiredAlert() {
         let alert = NSAlert()
-        alert.messageText = "未配置快捷键"
+        alert.messageText = L.hotkeyRequired
         alert.informativeText = "请先为该方案配置快捷键后再启用"
         alert.alertStyle = .warning
         alert.addButton(withTitle: "确定")
@@ -264,14 +240,13 @@ struct SchemeListItem: View {
     }
 }
 
-// MARK: - 方案编辑器
-struct SchemeEditor: View {
+// MARK: - 方案编辑器弹窗
+struct SchemeEditorSheet: View {
     let scheme: ClickScheme?
     @ObservedObject var viewModel: ClickerViewModel
     @ObservedObject private var localization = LocalizationManager.shared
     let isAddingNew: Bool
-    @Binding var selectedScheme: ClickScheme?
-    @Binding var isAddingNewBinding: Bool
+    @Binding var isPresented: Bool
 
     @State private var name: String
     @State private var button: MouseButton
@@ -285,12 +260,11 @@ struct SchemeEditor: View {
     @State private var recordedShift: Bool
     @State private var localEventMonitor: Any?
 
-    init(scheme: ClickScheme?, viewModel: ClickerViewModel, isAddingNew: Bool, selectedScheme: Binding<ClickScheme?>, isAddingNewBinding: Binding<Bool>) {
+    init(scheme: ClickScheme?, viewModel: ClickerViewModel, isAddingNew: Bool, isPresented: Binding<Bool>) {
         self.scheme = scheme
         self.viewModel = viewModel
         self.isAddingNew = isAddingNew
-        self._selectedScheme = selectedScheme
-        self._isAddingNewBinding = isAddingNewBinding
+        self._isPresented = isPresented
 
         // ⚠️ 关键：为每个方案创建独立的State副本，避免数据共享
         if let scheme = scheme {
@@ -324,7 +298,7 @@ struct SchemeEditor: View {
             return false
         }
         let cps = Double(count) / duration
-        return count > 0 && count <= 100 &&  // 最大100次点击
+        return count > 0 &&  // 点击次数大于0
                duration > 0 && duration <= 60 &&  // 最大60秒
                cps <= 200 &&  // 最大200 CPS (Clicks Per Second)
                recordedKeyCode != 0  // 必须设置快捷键
@@ -346,175 +320,172 @@ struct SchemeEditor: View {
     // 计算当前方案的显示名称
     private var schemeDisplayName: String {
         if let scheme = scheme {
+            // 根据方案在列表中的索引生成名称，忽略数据库中保存的name
             if let index = viewModel.schemes.firstIndex(where: { $0.id == scheme.id }) {
                 return L.presetName(index + 1)
             }
+            return scheme.name  // 找不到索引时使用保存的name
         }
         return L.newPreset
     }
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 16) {
-            // 顶部标题和删除按钮
+        VStack(spacing: 0) {
+            // 顶部标题栏 - 压缩间距
             HStack {
                 Text(schemeDisplayName)
-                    .font(.system(size: 15))
-                    .fontWeight(.semibold)
+                    .font(.system(size: 14.3, weight: .semibold))
 
                 Spacer()
 
                 if !isAddingNew {
-                    // 编辑模式：删除按钮在右上角
+                    // 编辑模式：删除按钮 - 图标化
                     Button(action: deleteScheme) {
-                        Image(systemName: "minus.circle.fill")
+                        Image(systemName: "trash")
+                            .font(.system(size: 12.5))
                             .foregroundColor(.red)
-                            .font(.system(size: 16))
                     }
                     .buttonStyle(.plain)
+                    .help(L.delete)
                 }
             }
-            .padding(.bottom, 8)
+            .padding(.horizontal, 18)
+            .padding(.vertical, 14)
+            .background(Color(nsColor: .controlBackgroundColor))
 
-            // 鼠标按键
-            VStack(alignment: .leading, spacing: 6) {
-                Text(L.mouseButton)
-                    .font(.system(size: 11))
-                    .foregroundColor(.secondary)
-                Picker("", selection: $button) {
-                    Text(L.leftButton).tag(MouseButton.left)
-                    Text(L.rightButton).tag(MouseButton.right)
-                }
-                .pickerStyle(.segmented)
-                .labelsHidden()
-            }
+            Divider()
 
-            // 点击次数和完成时长并排
-            HStack(spacing: 12) {
-                VStack(alignment: .leading, spacing: 6) {
-                    HStack(spacing: 4) {
-                        Text(L.clickCount)
-                            .font(.system(size: 11))
+            // 编辑表单 - 大幅压缩间距
+            ScrollView {
+                VStack(alignment: .leading, spacing: 14) {
+                    // 鼠标按键
+                    VStack(alignment: .leading, spacing: 5) {
+                        Text(L.mouseButton)
+                            .font(.system(size: 10.7, weight: .medium))
                             .foregroundColor(.secondary)
-                        if let count = Int(clickCount), count > 100 {
-                            Text("(max 100)")
-                                .font(.system(size: 9))
-                                .foregroundColor(.red)
+                        Picker("", selection: $button) {
+                            Text(L.leftButton).font(.system(size: 10.7)).tag(MouseButton.left)
+                            Text(L.rightButton).font(.system(size: 10.7)).tag(MouseButton.right)
                         }
+                        .pickerStyle(.segmented)
+                        .labelsHidden()
                     }
-                    TextField("", text: $clickCount)
-                        .textFieldStyle(.roundedBorder)
-                        .onChange(of: clickCount) { newValue in
-                            // 限制最大值为100
-                            if let count = Int(newValue), count > 100 {
-                                clickCount = "100"
-                            }
-                        }
-                }
 
-                VStack(alignment: .leading, spacing: 6) {
-                    HStack(spacing: 4) {
-                        Text(L.duration)
-                            .font(.system(size: 11))
-                            .foregroundColor(.secondary)
-                        if let duration = Double(totalDuration), duration > 60 {
-                            Text("(max 60s)")
-                                .font(.system(size: 9))
-                                .foregroundColor(.red)
-                        }
-                    }
-                    TextField("", text: $totalDuration)
-                        .textFieldStyle(.roundedBorder)
-                        .onChange(of: totalDuration) { newValue in
-                            // 限制最大值为60秒
-                            if let duration = Double(newValue), duration > 60 {
-                                totalDuration = "60"
-                            }
-                        }
-                }
-            }
-
-            // CPS 警告提示
-            if currentCPS > 200 {
-                HStack(spacing: 4) {
-                    Image(systemName: "exclamationmark.triangle.fill")
-                        .font(.system(size: 10))
-                        .foregroundColor(.red)
-                    Text(L.cpsWarning)
-                        .font(.system(size: 10))
-                        .foregroundColor(.red)
-                }
-                .padding(.top, 4)
-            } else if currentCPS > 0 {
-                Text(String(format: L.currentCPS, currentCPS))
-                    .font(.system(size: 10))
-                    .foregroundColor(.secondary)
-                    .padding(.top, 4)
-            }
-
-            // 快捷键
-            VStack(alignment: .leading, spacing: 6) {
-                HStack {
-                    Text(L.hotkey)
-                        .font(.system(size: 11))
-                        .foregroundColor(.secondary)
-
-                    if !hasHotkey {
-                        Text(L.hotkeyRequired)
-                            .font(.system(size: 10))
-                            .foregroundColor(.red)
-                    }
-                }
-
-                HStack(spacing: 4) {
-                    Button(action: { toggleHotkeyRecording() }) {
-                        Text(isRecordingHotkey ? L.recording : (hasHotkey ? hotkeyDisplayText : L.clickToSet))
-                            .font(.system(size: 12))
-                            .foregroundColor(hasHotkey ? .primary : .secondary)
-                            .frame(maxWidth: .infinity)
-                            .frame(height: 24)
-                    }
-                    .buttonStyle(.bordered)
-                    .frame(maxWidth: .infinity)
-
-                    if hasHotkey {
-                        Button(action: { clearHotkey() }) {
-                            Image(systemName: "xmark.circle.fill")
+                    // 点击次数和完成时长
+                    HStack(spacing: 12) {
+                        VStack(alignment: .leading, spacing: 5) {
+                            Text(L.clickCount)
+                                .font(.system(size: 10.7, weight: .medium))
                                 .foregroundColor(.secondary)
-                                .font(.system(size: 12))
+                            TextField("", text: $clickCount)
+                                .textFieldStyle(.roundedBorder)
                         }
-                        .buttonStyle(.plain)
-                        .help("清除快捷键")
+
+                        VStack(alignment: .leading, spacing: 5) {
+                            Text(L.duration)
+                                .font(.system(size: 10.7, weight: .medium))
+                                .foregroundColor(.secondary)
+                            TextField("", text: $totalDuration)
+                                .textFieldStyle(.roundedBorder)
+                                .onChange(of: totalDuration) { newValue in
+                                    if let duration = Double(newValue), duration > 60 {
+                                        totalDuration = "60"
+                                    }
+                                }
+                            if let duration = Double(totalDuration), duration > 60 {
+                                Text("(max 60s)")
+                                    .font(.system(size: 8.9))
+                                    .foregroundColor(.red)
+                            }
+                        }
+                    }
+
+                    // CPS 提示
+                    if currentCPS > 200 {
+                        HStack(spacing: 5) {
+                            Image(systemName: "exclamationmark.triangle.fill")
+                                .font(.system(size: 9.8))
+                            Text(L.cpsWarning)
+                                .font(.system(size: 9.8))
+                        }
+                        .foregroundColor(.red)
+                        .padding(.horizontal, 10)
+                        .padding(.vertical, 6)
+                        .background(Color.red.opacity(0.1))
+                        .cornerRadius(6)
+                    } else if currentCPS > 0 {
+                        Text(String(format: L.currentCPS, currentCPS))
+                            .font(.system(size: 9.8))
+                            .foregroundColor(.secondary)
+                    }
+
+                    // 快捷键
+                    VStack(alignment: .leading, spacing: 5) {
+                        HStack {
+                            Text(L.hotkey)
+                                .font(.system(size: 10.7, weight: .medium))
+                                .foregroundColor(.secondary)
+
+                            if !hasHotkey {
+                                Text("(\(L.hotkeyRequired))")
+                                    .font(.system(size: 8.9))
+                                    .foregroundColor(.red)
+                            }
+                        }
+
+                        HStack(spacing: 6) {
+                            Button(action: { toggleHotkeyRecording() }) {
+                                Text(isRecordingHotkey ? L.recording : (hasHotkey ? hotkeyDisplayText : L.clickToSet))
+                                    .font(.system(size: 10.7))
+                                    .foregroundColor(hasHotkey ? .primary : .secondary)
+                                    .frame(maxWidth: .infinity)
+                                    .padding(.vertical, 6)
+                            }
+                            .buttonStyle(.bordered)
+
+                            if hasHotkey {
+                                Button(action: { clearHotkey() }) {
+                                    Image(systemName: "xmark.circle.fill")
+                                        .foregroundColor(.secondary)
+                                        .font(.system(size: 13.4))
+                                }
+                                .buttonStyle(.plain)
+                                .help("清除快捷键")
+                            }
+                        }
                     }
                 }
+                .padding(18)
             }
 
-            Spacer()
+            Divider()
 
-            // 底部按钮（所有模式都显示）
-            HStack(spacing: 8) {
-                Spacer()
-
-                // 取消和保存按钮在右侧
+            // 底部按钮 - 移除固定宽度
+            HStack(spacing: 10) {
                 Button(action: cancelEditing) {
                     Text(L.cancel)
-                        .font(.system(size: 12))  // 从 13 改为 12
-                        .frame(width: 60)  // 从 70 改为 60
-                        .frame(height: 26)  // 从 28 改为 26
+                        .font(.system(size: 10.7))
+                        .padding(.horizontal, 16)
+                        .padding(.vertical, 6)
                 }
                 .buttonStyle(.bordered)
+                .keyboardShortcut(.cancelAction)
 
                 Button(action: saveScheme) {
                     Text(L.save)
-                        .font(.system(size: 12))  // 从 13 改为 12
-                        .frame(width: 60)  // 从 70 改为 60
-                        .frame(height: 26)  // 从 28 改为 26
+                        .font(.system(size: 10.7))
+                        .padding(.horizontal, 16)
+                        .padding(.vertical, 6)
                 }
                 .buttonStyle(.borderedProminent)
                 .disabled(!isFormValid)
+                .keyboardShortcut(.defaultAction)
             }
+            .padding(.horizontal, 18)
+            .padding(.vertical, 12)
+            .background(Color(nsColor: .controlBackgroundColor))
         }
-        .padding(16)
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+        .frame(width: 210, height: 331)  // 高度增加20%: 276 * 1.2 = 331
         .onDisappear {
             stopHotkeyRecording()
         }
@@ -553,9 +524,8 @@ struct SchemeEditor: View {
 
 
     private func cancelEditing() {
-        // 取消编辑 - 关闭编辑器
-        selectedScheme = nil
-        isAddingNewBinding = false
+        // 取消编辑 - 关闭弹窗
+        isPresented = false
     }
 
     private func saveScheme() {
@@ -585,8 +555,6 @@ struct SchemeEditor: View {
                 isEnabled: false
             )
             viewModel.addScheme(newScheme)
-            // 保存后关闭新增界面
-            isAddingNewBinding = false
         } else if let oldScheme = scheme {
             // 更新现有方案 - 创建新的方案对象，保持原有 ID、名称和启用状态
             var updatedScheme = oldScheme
@@ -598,18 +566,17 @@ struct SchemeEditor: View {
             // updatedScheme.isEnabled 和 updatedScheme.name 已经从 oldScheme 继承
 
             viewModel.updateScheme(oldScheme, with: updatedScheme)
-            // 更新选中的方案以刷新显示
-            if let index = viewModel.schemes.firstIndex(where: { $0.id == updatedScheme.id }) {
-                selectedScheme = viewModel.schemes[index]
-            }
         }
+
+        // 保存后关闭弹窗
+        isPresented = false
     }
 
     private func deleteScheme() {
         guard let scheme = scheme else { return }
         viewModel.deleteScheme(scheme)
-        // 删除后关闭编辑器
-        selectedScheme = nil
+        // 删除后关闭弹窗
+        isPresented = false
     }
 
     private func clearHotkey() {

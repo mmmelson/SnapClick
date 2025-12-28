@@ -39,6 +39,10 @@ struct L {
         LocalizationManager.shared.currentLanguage == .chinese ? "新建预设" : "New Preset"
     }
 
+    static var add: String {
+        LocalizationManager.shared.currentLanguage == .chinese ? "新建" : "Add"
+    }
+
     // 按钮
     static var leftButton: String {
         LocalizationManager.shared.currentLanguage == .chinese ? "左键" : "Left"
@@ -86,6 +90,10 @@ struct L {
 
     static var save: String {
         LocalizationManager.shared.currentLanguage == .chinese ? "保存" : "Save"
+    }
+
+    static var edit: String {
+        LocalizationManager.shared.currentLanguage == .chinese ? "编辑" : "Edit"
     }
 
     static var delete: String {

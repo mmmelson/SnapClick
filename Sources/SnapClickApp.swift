@@ -8,7 +8,7 @@ struct SnapClickApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .frame(width: 456, height: 365)  // 增加高度以容纳语言切换栏
+                .frame(width: 251, height: 365)  // 宽度缩小15%
         }
         .windowStyle(.titleBar)
         .windowToolbarStyle(.unified(showsTitle: true))
@@ -16,7 +16,7 @@ struct SnapClickApp: App {
         .commands {
             CommandGroup(replacing: .newItem) {}
         }
-        .defaultSize(width: 456, height: 387)  // 相应增加默认大小
+        .defaultSize(width: 251, height: 387)  // 相应调整默认大小
     }
 }
 
