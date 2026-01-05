@@ -19,6 +19,12 @@
 
 SnapClick太直观了，你不会需要任何介绍。
 
+<div align="center">
+
+<img src="images/image-1.png" alt="SnapClick 截图" width="60%">
+
+</div>
+
 ### 首次使用说明
 
 当您首次打开 SnapClick 时，macOS 会显示安全提示（因为应用未上架 App Store）。请按以下步骤操作：
@@ -43,12 +49,6 @@ SnapClick太直观了，你不会需要任何介绍。
 我开始尝试市面上现成的一些连点器工具，但他们要么需要付费，要么不够好用。
 
 这就是SnapClick的由来，一个简单、稳定、够用的mac端鼠标连点器。
-
-<div align="center">
-
-<img src="images/image-1.png" alt="SnapClick 截图" width="60%">
-
-</div>
 
 ## ✨ 特性
 

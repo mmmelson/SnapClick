@@ -19,6 +19,12 @@ Click [**Download**](https://github.com/mmmelson/SnapClick/releases/download/v3.
 
 SnapClick is too intuitive; you won't need any introduction.
 
+<div align="center">
+
+<img src="images/image.png" alt="SnapClick Screenshot" width="60%">
+
+</div>
+
 ### First Time Setup
 
 When you first open SnapClick, macOS will show a security dialog since it's not from the App Store. Follow these steps:
@@ -43,12 +49,6 @@ However, building a tank army demands rapid, repetitive clicking - especially ch
 I tried several off-the-shelf auto-clickers, but they were either locked behind a paywall or just didn't feel right.
 
 That's why I built SnapClick — a simple, stable auto-clicker that just works.
-
-<div align="center">
-
-<img src="images/image.png" alt="SnapClick Screenshot" width="60%">
-
-</div>
 
 ## Features
 
