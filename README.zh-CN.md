@@ -76,17 +76,9 @@ SnapClick太直观了，你不会需要任何介绍。
 
 **方式 1：右键打开（推荐）**
 
-<div align="center">
-<img src="images/security-warning.png" alt="安全警告" width="45%">
-</div>
-
 右键应用 → **打开** → **打开**（未签名应用需要一次）
 
 **方式 2：系统设置**
-
-<div align="center">
-<img src="images/security-settings.png" alt="隐私与安全性" width="60%">
-</div>
 
 打开 **系统设置** → **隐私与安全性** → 点击 **仍要打开**
 
