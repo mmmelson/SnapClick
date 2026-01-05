@@ -21,7 +21,7 @@ SnapClick太直观了，你不会需要任何介绍。
 
 <div align="center">
 
-<img src="images/image-1.png" alt="SnapClick 截图" width="60%">
+<img src="images/image-1.png" alt="SnapClick 截图" width="30%">
 
 </div>
 

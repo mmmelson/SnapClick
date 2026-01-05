@@ -21,7 +21,7 @@ SnapClick is too intuitive; you won't need any introduction.
 
 <div align="center">
 
-<img src="images/image.png" alt="SnapClick Screenshot" width="60%">
+<img src="images/image.png" alt="SnapClick Screenshot" width="30%">
 
 </div>
 
