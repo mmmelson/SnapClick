@@ -20,8 +20,6 @@ class MouseClicker {
             return
         }
 
-        print("🖱️  开始执行连点: \(scheme.name) - \(scheme.clickCount)次/\(scheme.totalDuration)秒")
-        print("📍 点击位置: (\(location.x), \(location.y))")
 
         // 播放开始音效（只播放一次）
         playStartSound()
@@ -31,15 +29,17 @@ class MouseClicker {
             guard let self = self else { return }
             self.isRunning = true
 
+            var actualClickCount = 0
             for i in 1...scheme.clickCount {
                 // 检查任务是否被取消
                 guard let currentTask = self.currentTask, !currentTask.isCancelled else {
-                    print("⚠️ 连点任务被取消")
+                    print("⚠️ 连点任务被取消，已点击: \(actualClickCount)次")
                     break
                 }
 
                 // 执行点击（不播放音效）
                 self.simulateClick(button: scheme.button, at: location)
+                actualClickCount += 1
 
                 // 如果不是最后一次点击，等待间隔时间
                 if i < scheme.clickCount {
@@ -52,7 +52,6 @@ class MouseClicker {
             }
 
             self.isRunning = false
-            print("✅ 连点完成")
         }
 
         currentTask = task

@@ -15,7 +15,7 @@
 </div>
 
 ## 下载
-点击[**下载**](https://github.com/mmmelson/SnapClick/releases/download/v3.0/SnapClick_v3.0.dmg)，即可开始！
+点击[**下载**](https://github.com/mmmelson/SnapClick/releases/download/v3.1/SnapClick_v3.1.dmg)，即可开始！
 
 SnapClick太直观了，你不会需要任何介绍。
 
@@ -152,7 +152,14 @@ cd SnapClick
 
 ## 📋 更新日志
 
-### v3.0 - 2025-12-28 (最新版本)
+### v3.1 - 2026-01-05 (最新版本)
+- 🐛 **修复关键bug**：应用重启后方案不再重复执行多次
+- ✨ **快捷键冲突检测**：应用现在可以防止重复快捷键并显示清晰的警告
+- 🎁 **默认方案**：首次使用的用户将获得两个预设方案（左键 ⌥1，右键 ⌥2）
+- 🧹 **代码清理**：移除调试日志以提升性能
+- 🏗️ **架构改进**：使用 `@EnvironmentObject` 确保单一 ViewModel 实例
+
+### v3.0 - 2025-12-28
 - 🎨 重新设计方案卡片交互：整个卡片可点击进入编辑
 - 🎯 将开关移至右侧并垂直居中
 - 🏷️ 在方案预览卡片中添加"快捷键"标签

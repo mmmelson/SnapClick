@@ -1,7 +1,7 @@
 #!/bin/bash
 
 APP_NAME="SnapClick"
-VERSION="2.0"
+VERSION="3.1"
 DMG_NAME="${APP_NAME}_v${VERSION}.dmg"
 VOLUME_NAME="SnapClick"
 

@@ -140,6 +140,16 @@ struct L {
         LocalizationManager.shared.currentLanguage == .chinese ? "确定" : "OK"
     }
 
+    static var hotkeyConflict: String {
+        LocalizationManager.shared.currentLanguage == .chinese ? "快捷键冲突" : "Hotkey Conflict"
+    }
+
+    static var hotkeyConflictMessage: String {
+        LocalizationManager.shared.currentLanguage == .chinese ?
+            "此快捷键已被「%@」使用，请设置其他快捷键" :
+            "This hotkey is already used by \"%@\". Please set a different hotkey."
+    }
+
     // 通知
     static var started: String {
         LocalizationManager.shared.currentLanguage == .chinese ? "已启动" : "Started"

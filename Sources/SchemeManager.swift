@@ -108,13 +108,14 @@ class SchemeManager {
     // MARK: - 默认预设
 
     private func loadDefaultSchemes() {
+        // 默认方案1: 左键 10次 1秒 快捷键⌥1
         let defaultScheme1 = ClickScheme(
-            name: "Left Click x10",
+            name: "预设1",
             button: .left,
             clickCount: 10,
             totalDuration: 1.0,
             hotkey: Hotkey(
-                keyCode: 50,  // ` (grave accent / tilde key)
+                keyCode: 18,  // 数字键1
                 commandKey: false,
                 optionKey: true,
                 controlKey: false,
@@ -123,13 +124,14 @@ class SchemeManager {
             isEnabled: false
         )
 
+        // 默认方案2: 右键 10次 1秒 快捷键⌥2
         let defaultScheme2 = ClickScheme(
-            name: "Right Click x10",
+            name: "预设2",
             button: .right,
             clickCount: 10,
             totalDuration: 1.0,
             hotkey: Hotkey(
-                keyCode: 18,  // 1
+                keyCode: 19,  // 数字键2
                 commandKey: false,
                 optionKey: true,
                 controlKey: false,
@@ -140,7 +142,6 @@ class SchemeManager {
 
         schemes = [defaultScheme1, defaultScheme2]
         saveSchemes()
-        print("✅ Loaded 2 default preset schemes")
     }
 
     func hasScheme(named name: String) -> Bool {

@@ -16,10 +16,16 @@ class ClickerViewModel: ObservableObject {
         // 如果有已启用的方案，自动启动监听器
         let enabledSchemes = schemes.filter { $0.isEnabled }
         if !enabledSchemes.isEmpty {
-            print("🔄 检测到 \(enabledSchemes.count) 个已启用方案，自动启动监听器")
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 self.startClicker()
             }
+        }
+    }
+
+    deinit {
+        // 停止监听
+        if isRunning {
+            hotkeyMonitor.stopMonitoring()
         }
     }
 
@@ -186,15 +192,11 @@ class ClickerViewModel: ObservableObject {
 
         // ⚠️ 关键：如果没有启用的方案，直接返回（不弹窗提示）
         guard !enabledSchemes.isEmpty else {
-            print("⚠️  没有启用的方案，跳过启动")
             return
         }
 
-        print("🚀 开始启动监听器，已启用方案数: \(enabledSchemes.count)")
-
         // 仅注册已启用方案的快捷键
         for scheme in enabledSchemes {
-            print("📝 注册方案: \(scheme.name), 快捷键: keyCode=\(scheme.hotkey.keyCode)")
             registerHotkey(for: scheme)
         }
 
@@ -220,17 +222,12 @@ class ClickerViewModel: ObservableObject {
     private func registerHotkey(for scheme: ClickScheme) {
         let schemeId = scheme.id  // 捕获ID而不是整个scheme
         hotkeyMonitor.registerHotkey(scheme.hotkey) { [weak self] in
-            guard let self = self else {
-                print("⚠️ ViewModel 已被释放")
-                return
-            }
+            guard let self = self else { return }
+
             // 通过ID查找最新的scheme，确保使用最新的参数
             guard let currentScheme = self.schemes.first(where: { $0.id == schemeId }) else {
-                print("⚠️ 方案已被删除")
                 return
             }
-
-            print("🎯 执行方案: \(currentScheme.name), 点击次数: \(currentScheme.clickCount), 时长: \(currentScheme.totalDuration)秒")
 
             // 强引用 mouseClicker 以确保执行期间不被释放
             let clicker = self.mouseClicker

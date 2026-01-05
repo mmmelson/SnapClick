@@ -13,7 +13,6 @@ class HotkeyMonitor {
     /// 注册快捷键及其回调
     func registerHotkey(_ hotkey: Hotkey, handler: @escaping () -> Void) {
         hotkeyHandlers[hotkey] = handler
-        print("✅ 已注册快捷键: keyCode=\(hotkey.keyCode), modifiers=\(hotkey.modifierFlags.rawValue)")
     }
 
     /// 开始监听全局按键事件

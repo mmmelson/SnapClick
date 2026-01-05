@@ -15,7 +15,7 @@
 </div>
 
 ## Download
-Click [**Download**](https://github.com/mmmelson/SnapClick/releases/download/v3.0/SnapClick_v3.0.dmg) to start!
+Click [**Download**](https://github.com/mmmelson/SnapClick/releases/download/v3.1/SnapClick_v3.1.dmg) to start!
 
 SnapClick is too intuitive; you won't need any introduction.
 
@@ -152,7 +152,14 @@ cd SnapClick
 
 ## Changelog
 
-### v3.0 - 2025-12-28 (Latest)
+### v3.1 - 2026-01-05 (Latest)
+- 🐛 **Fixed critical bug**: Schemes no longer execute multiple times after app restart
+- ✨ **Hotkey conflict detection**: App now prevents duplicate hotkeys and shows clear warnings
+- 🎁 **Default schemes**: First-time users get two preset schemes (Left Click ⌥1, Right Click ⌥2)
+- 🧹 **Code cleanup**: Removed debug logging for better performance
+- 🏗️ **Architecture improvement**: Single ViewModel instance using `@EnvironmentObject`
+
+### v3.0 - 2025-12-28
 - 🎨 Redesigned scheme card interaction: entire card clickable for editing
 - 🎯 Moved toggle to right side with proper vertical centering
 - 🏷️ Added "Hotkey" label in scheme preview cards

@@ -2,8 +2,8 @@ import SwiftUI
 import AppKit
 
 struct ContentView: View {
-    // ⚠️ 关键：使用 AppDelegate 中的共享 ViewModel，确保窗口关闭后仍然运行
-    @ObservedObject private var viewModel: ClickerViewModel
+    // ⚠️ 关键：使用 EnvironmentObject 确保使用共享的 ViewModel
+    @EnvironmentObject private var viewModel: ClickerViewModel
     @ObservedObject private var localization = LocalizationManager.shared
 
     // 使用枚举来明确区分编辑和新建模式
@@ -22,16 +22,6 @@ struct ContentView: View {
     }
 
     @State private var editorMode: EditorMode?
-
-    init() {
-        // 从 AppDelegate 获取共享的 ViewModel
-        if let appDelegate = AppDelegate.shared, let vm = appDelegate.viewModel {
-            self.viewModel = vm
-        } else {
-            // 如果 AppDelegate 还未初始化，创建临时实例（不应该发生）
-            self.viewModel = ClickerViewModel()
-        }
-    }
 
     // 生成方案显示名称
     private func schemeDisplayName(for scheme: ClickScheme) -> String {
@@ -574,6 +564,12 @@ struct SchemeEditorSheet: View {
             shiftKey: recordedShift
         )
 
+        // 检查快捷键冲突
+        if let conflictingScheme = checkHotkeyConflict(hotkey: hotkey) {
+            showHotkeyConflictAlert(conflictingScheme: conflictingScheme)
+            return
+        }
+
         if isAddingNew {
             // 新建方案 - 使用自动生成的名称
             let schemeName = "预设\(viewModel.schemes.count + 1)"
@@ -601,6 +597,42 @@ struct SchemeEditorSheet: View {
 
         // 保存后关闭弹窗
         isPresented = false
+    }
+
+    // 检查快捷键冲突
+    private func checkHotkeyConflict(hotkey: Hotkey) -> ClickScheme? {
+        // 查找是否有其他方案使用相同的快捷键
+        for existingScheme in viewModel.schemes {
+            // 如果是编辑模式，跳过当前正在编辑的方案
+            if let currentScheme = scheme, existingScheme.id == currentScheme.id {
+                continue
+            }
+
+            // 检查快捷键是否相同
+            if existingScheme.hotkey == hotkey {
+                return existingScheme
+            }
+        }
+        return nil
+    }
+
+    // 显示快捷键冲突警告
+    private func showHotkeyConflictAlert(conflictingScheme: ClickScheme) {
+        let alert = NSAlert()
+        alert.messageText = L.hotkeyConflict
+
+        // 生成冲突方案的显示名称
+        let conflictingSchemeName: String
+        if let index = viewModel.schemes.firstIndex(where: { $0.id == conflictingScheme.id }) {
+            conflictingSchemeName = L.presetName(index + 1)
+        } else {
+            conflictingSchemeName = conflictingScheme.name
+        }
+
+        alert.informativeText = String(format: L.hotkeyConflictMessage, conflictingSchemeName)
+        alert.alertStyle = .warning
+        alert.addButton(withTitle: L.ok)
+        alert.runModal()
     }
 
     private func deleteScheme() {

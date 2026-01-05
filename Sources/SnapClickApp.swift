@@ -8,6 +8,7 @@ struct SnapClickApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(appDelegate.viewModel)
                 .frame(width: 251, height: 365)  // 宽度缩小15%
         }
         .windowStyle(.titleBar)
@@ -24,14 +25,18 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var statusItem: NSStatusItem?
     var popover: NSPopover?
     // ⚠️ 关键：在 AppDelegate 中持有 ViewModel，确保窗口关闭后仍然运行
+    // 使用 lazy var 确保只初始化一次
     static var shared: AppDelegate?
-    var viewModel: ClickerViewModel?
+    lazy var viewModel: ClickerViewModel = {
+        return ClickerViewModel()
+    }()
 
     func applicationDidFinishLaunching(_ notification: Notification) {
         // ⚠️ 关键：只创建菜单栏图标，不检查权限
         // 权限检查会在真正需要时（启用方案时）进行
         AppDelegate.shared = self
-        viewModel = ClickerViewModel()
+        // 强制初始化 viewModel
+        _ = viewModel
         setupMenuBarIcon()
     }
 
@@ -59,7 +64,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let popover = NSPopover()
         popover.contentSize = NSSize(width: 300, height: 200)
         popover.behavior = .transient
-        popover.contentViewController = NSHostingController(rootView: MenuBarView())
+        popover.contentViewController = NSHostingController(rootView: MenuBarView().environmentObject(viewModel))
 
         popover.show(relativeTo: button.bounds, of: button, preferredEdge: .minY)
         self.popover = popover
@@ -72,16 +77,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 // 菜单栏弹出视图
 struct MenuBarView: View {
-    @ObservedObject private var viewModel: ClickerViewModel
-
-    init() {
-        // 从 AppDelegate 获取共享的 ViewModel
-        if let appDelegate = AppDelegate.shared, let vm = appDelegate.viewModel {
-            self.viewModel = vm
-        } else {
-            self.viewModel = ClickerViewModel()
-        }
-    }
+    @EnvironmentObject private var viewModel: ClickerViewModel
 
     var body: some View {
         VStack(spacing: 12) {
